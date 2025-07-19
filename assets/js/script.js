@@ -78,11 +78,11 @@ animateOnScroll.forEach(el => {
 // Typing effect for hero title
 function typeWriter(element, text, speed = 100) {
     let i = 0;
-    element.textContent = '';
+    element.innerHTML = '';
     
     function type() {
         if (i < text.length) {
-            element.textContent += text.charAt(i);
+            element.innerHTML += text.charAt(i);
             i++;
             setTimeout(type, speed);
         }
@@ -100,9 +100,8 @@ window.addEventListener('load', () => {
     }, 500);
 });
 
-// Contact form removed for security - using Formspree instead
-
-// Smooth scrolling and intersection observer for animations
+// Contact form handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
     // Prevent default submission
     e.preventDefault();
     
@@ -337,9 +336,7 @@ document.addEventListener('mousemove', (e) => {
 // Theme switcher (bonus feature)
 function createThemeToggle() {
     const themeToggle = document.createElement('button');
-    const sunIcon = document.createElement('i');
-    sunIcon.className = 'fas fa-sun';
-    themeToggle.appendChild(sunIcon);
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // Start with sun since we default to dark
     themeToggle.className = 'theme-toggle';
     themeToggle.style.cssText = `
         position: fixed;
@@ -364,12 +361,7 @@ function createThemeToggle() {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-theme');
         const isDark = document.body.classList.contains('dark-theme');
-        
-        // Clear existing icon
-        themeToggle.innerHTML = '';
-        const icon = document.createElement('i');
-        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-        themeToggle.appendChild(icon);
+        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         
         // Update navbar styling immediately when theme changes
         const navbar = document.querySelector('.navbar');
