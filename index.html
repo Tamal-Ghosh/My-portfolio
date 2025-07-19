@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; connect-src 'self';">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Tamal Ghosh - Portfolio</title>
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -55,8 +57,8 @@
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                <a href="resume.pdf" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-eye"></i> View Resume
+                <a href="mailto:tamalghosha07@gmail.com?subject=Resume%20Request" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Request Resume
                 </a>
             </div>
         </div>
