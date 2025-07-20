@@ -23,11 +23,15 @@ This portfolio website represents my journey as a CSE undergraduate at KUET (Khu
 - **Responsive Design** - Optimized for all device sizes
 - **Modern UI/UX** - Clean, professional design with smooth animations
 - **Interactive Navigation** - Smooth scrolling between sections
+- **Draggable Theme Toggle** - Floating theme switcher that can be dragged anywhere on screen
+- **Dark/Light Mode** - Dynamic theme switching with instant visual feedback
 - **Project Showcase** - Detailed project cards with links to GitHub and live demos
 - **Skills Section** - Organized display of technical skills and technologies
-- **Contact Form** - Functional contact form for communication
-- **Resume Download** - Direct download link for PDF resume
+- **Contact Form** - Functional contact form with validation and success messages
+- **Resume Download** - Direct download link for PDF resume with security headers
 - **Social Links** - Links to professional social media profiles
+- **Smooth Animations** - Parallax effects, typing animations, and scroll-triggered reveals
+- **Mobile Touch Support** - Full touch gesture support for mobile devices
 
 ## 📁 Project Structure
 
@@ -57,6 +61,28 @@ my portfolio/
    - Currently Learning (Django Framework, Kotlin for Android, Cloud Technologies)
 4. **Projects** - Featured projects with descriptions, technologies used, and links
 5. **Contact** - Contact information and functional contact form
+
+## 🎮 Interactive Features
+
+### Draggable Theme Toggle
+- **Desktop**: Click and drag the floating theme toggle button to any position on screen
+- **Mobile**: Touch and drag support with smooth movement
+- **Boundary Detection**: Button stays within viewport bounds automatically
+- **Click vs Drag**: Smart detection between theme switching and position dragging
+- **Visual Feedback**: Cursor changes and hover effects for better UX
+
+### Theme Switching
+- **Dark Mode Default**: Portfolio loads with modern dark theme
+- **Instant Toggle**: Switch between dark and light themes with single click
+- **Persistent Positioning**: Theme toggle remembers its position while switching themes
+- **Smooth Transitions**: All elements transition smoothly between themes
+
+### Advanced Animations
+- **Typing Effect**: Animated hero title with typewriter effect
+- **Parallax Scrolling**: Hero section elements move at different speeds
+- **Scroll Animations**: Elements fade in and slide up when entering viewport
+- **Hover Effects**: Interactive 3D tilt effects on project cards and skill items
+- **Loading Animation**: Smooth page load with reveal animations
 
 ## 💼 Featured Projects
 
@@ -138,6 +164,12 @@ This project is open source and available under the [MIT License](LICENSE).
 - **v1.0** - Initial portfolio with all sections and responsive design
 - **v1.1** - Enhanced animations and improved mobile experience
 - **v1.2** - Added new projects and updated skills section
+- **v1.3** - Implemented draggable floating theme toggle with dark/light mode switching
+  - Added drag-and-drop functionality for theme toggle button
+  - Full mobile touch support for dragging
+  - Boundary detection to keep button within viewport
+  - Enhanced UX with visual feedback and smooth transitions
+  - Improved accessibility with proper ARIA labels
 
 ---
 
