@@ -334,197 +334,49 @@ document.addEventListener('mousemove', (e) => {
 });
 
 /**
- * Creates and initializes a draggable theme toggle button
- * Features:
- * - Drag and drop functionality for desktop and mobile
- * - Boundary detection to keep button within viewport
- * - Theme switching between dark and light modes
- * - Visual feedback and smooth animations
- * - Touch gesture support for mobile devices
+ * Initialize theme toggle in navbar
  */
-// Theme switcher (bonus feature)
-function createThemeToggle() {
-    const themeToggle = document.createElement('button');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // Start with sun since we default to dark
-    themeToggle.className = 'theme-toggle';
-    themeToggle.style.cssText = `
-        position: fixed;
-        top: 50%;
-        right: 20px;
-        background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: grab;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        transition: box-shadow 0.3s ease;
-        z-index: 1001;
-        font-size: 1.2rem;
-        user-select: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
+// Theme switcher in navbar
+function initializeThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
     
-    document.body.appendChild(themeToggle);
+    if (!themeToggle) return;
     
-    // ========================================
-    // Dragging Functionality
-    // ========================================
-    // Variables to track dragging state and position
-    let isDragging = false;
-    let dragStartX, dragStartY, initialX, initialY;
-    
-    themeToggle.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        themeToggle.style.cursor = 'grabbing';
-        themeToggle.style.transition = 'none';
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
         
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-        
-        const rect = themeToggle.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-        
-        e.preventDefault();
-    });
-    
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        
-        const deltaX = e.clientX - dragStartX;
-        const deltaY = e.clientY - dragStartY;
-        
-        let newX = initialX + deltaX;
-        let newY = initialY + deltaY;
-        
-        // Keep button within viewport bounds
-        const buttonSize = 50;
-        newX = Math.max(0, Math.min(window.innerWidth - buttonSize, newX));
-        newY = Math.max(0, Math.min(window.innerHeight - buttonSize, newY));
-        
-        themeToggle.style.left = newX + 'px';
-        themeToggle.style.top = newY + 'px';
-        themeToggle.style.right = 'auto';
-        themeToggle.style.transform = 'none';
-    });
-    
-    document.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            themeToggle.style.cursor = 'grab';
-            themeToggle.style.transition = 'box-shadow 0.3s ease';
-        }
-    });
-    
-    // ========================================
-    // Touch Events for Mobile Support
-    // ========================================
-    themeToggle.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        themeToggle.style.transition = 'none';
-        
-        const touch = e.touches[0];
-        dragStartX = touch.clientX;
-        dragStartY = touch.clientY;
-        
-        const rect = themeToggle.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-        
-        e.preventDefault();
-    });
-    
-    document.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        const touch = e.touches[0];
-        const deltaX = touch.clientX - dragStartX;
-        const deltaY = touch.clientY - dragStartY;
-        
-        let newX = initialX + deltaX;
-        let newY = initialY + deltaY;
-        
-        // Keep button within viewport bounds
-        const buttonSize = 50;
-        newX = Math.max(0, Math.min(window.innerWidth - buttonSize, newX));
-        newY = Math.max(0, Math.min(window.innerHeight - buttonSize, newY));
-        
-        themeToggle.style.left = newX + 'px';
-        themeToggle.style.top = newY + 'px';
-        themeToggle.style.right = 'auto';
-        themeToggle.style.transform = 'none';
-        
-        e.preventDefault();
-    });
-    
-    document.addEventListener('touchend', () => {
-        if (isDragging) {
-            isDragging = false;
-            themeToggle.style.transition = 'box-shadow 0.3s ease';
-        }
-    });
-    
-    // ========================================
-    // Theme Toggle Functionality
-    // ========================================
-    themeToggle.addEventListener('click', (e) => {
-        // Only toggle theme if not dragging
-        if (e.target === themeToggle && !isDragging) {
-            document.body.classList.toggle('dark-theme');
-            const isDark = document.body.classList.contains('dark-theme');
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-            
-            // Update navbar styling immediately when theme changes
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                if (isDark) {
-                    navbar.style.background = 'rgba(10, 10, 15, 0.98)';
-                    navbar.style.boxShadow = '0 2px 20px rgba(139, 92, 246, 0.3)';
-                } else {
-                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
-                }
+        // Update navbar styling immediately when theme changes
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+            if (isDark) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(139, 92, 246, 0.3)';
             } else {
-                if (isDark) {
-                    navbar.style.background = 'rgba(10, 10, 15, 0.95)';
-                    navbar.style.boxShadow = '0 2px 20px rgba(139, 92, 246, 0.2)';
-                } else {
-                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-                }
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
             }
-            
-            // Add a little animation on click
-            const currentTransform = themeToggle.style.transform;
-            themeToggle.style.transform = `${currentTransform} scale(0.9)`;
-            setTimeout(() => {
-                themeToggle.style.transform = currentTransform;
-            }, 150);
+        } else {
+            if (isDark) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(139, 92, 246, 0.2)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
         }
-    });
-    
-    // ========================================
-    // Hover Effects for Better UX
-    // ========================================
-    themeToggle.addEventListener('mouseenter', () => {
-        if (!isDragging) {
-            themeToggle.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.5)';
-        }
-    });
-    
-    themeToggle.addEventListener('mouseleave', () => {
-        if (!isDragging) {
-            themeToggle.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
-        }
+        
+        // Add a little animation on click
+        themeToggle.style.transform = 'translateY(-2px) scale(0.95)';
+        setTimeout(() => {
+            themeToggle.style.transform = 'translateY(0) scale(1)';
+        }, 150);
     });
 }
 
 // Initialize theme toggle
-createThemeToggle();
+initializeThemeToggle();
 
 // Add dark theme styles
 const darkThemeStyles = `
@@ -569,6 +421,15 @@ const darkThemeStyles = `
     
     .dark-theme .nav-link:hover {
         color: var(--accent-primary);
+    }
+    
+    .dark-theme .theme-toggle {
+        background: var(--accent-gradient-alt);
+        box-shadow: 0 2px 10px var(--purple-glow);
+    }
+    
+    .dark-theme .theme-toggle:hover {
+        box-shadow: 0 4px 15px var(--purple-glow);
     }
     
     .dark-theme .hero {
@@ -667,6 +528,49 @@ const darkThemeStyles = `
     
     .dark-theme .stat p {
         color: var(--text-secondary);
+    }
+    
+    .dark-theme .current-status {
+        background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+        border: 1px solid #4b5563;
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        color: #ffffff;
+    }
+    
+    .dark-theme .current-status::before {
+        background: linear-gradient(45deg, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    }
+    
+    .dark-theme .current-status h4 {
+        color: #ffffff;
+    }
+    
+    .dark-theme .status-text {
+        color: #e5e7eb;
+        font-weight: 500;
+    }
+    
+    .dark-theme .languages-section h4 {
+        color: var(--text-primary);
+    }
+    
+    .dark-theme .language-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-left: 4px solid var(--accent-primary);
+    }
+    
+    .dark-theme .language-item:hover {
+        background: var(--bg-tertiary);
+        box-shadow: 0 4px 12px var(--purple-glow);
+    }
+    
+    .dark-theme .language-name {
+        color: var(--text-primary);
+    }
+    
+    .dark-theme .language-level {
+        color: var(--accent-secondary);
     }
     
     .dark-theme .about-img-container {
@@ -836,14 +740,24 @@ const darkThemeStyles = `
     }
     
     .dark-theme .footer {
-        background: var(--bg-primary);
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
         color: var(--text-secondary);
         border-top: 1px solid var(--border-color);
     }
     
-    .dark-theme .theme-toggle {
-        background: var(--accent-gradient-alt) !important;
-        box-shadow: 0 4px 15px var(--purple-glow) !important;
+    .dark-theme .footer-message p {
+        color: var(--text-secondary);
+    }
+    
+    .dark-theme .footer-links a {
+        color: var(--accent-primary);
+        border-color: rgba(139, 92, 246, 0.3);
+    }
+    
+    .dark-theme .footer-links a:hover {
+        color: white;
+        background: rgba(139, 92, 246, 0.2);
+        border-color: var(--accent-primary);
     }
     
     .dark-theme .hamburger span {
