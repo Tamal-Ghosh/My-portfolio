@@ -7,6 +7,8 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -14,6 +16,9 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    min-width: 320px; /* Minimum supported width */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -28,7 +33,11 @@ body {
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
+    /* Fallback for browsers that don't support backdrop-filter */
+    background: #ffffff;
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
     z-index: 1000;
     transition: all 0.3s ease;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -1089,5 +1098,148 @@ a.btn-outline:hover:visited {
     
     .footer-message p {
         font-size: 0.9rem;
+    }
+}
+
+/* Additional Responsive Breakpoints for Better Device Support */
+
+/* Tablet landscape and small desktop */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .container {
+        padding: 0 30px;
+    }
+    
+    .hero-content {
+        padding-right: 2rem;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet portrait */
+@media (max-width: 768px) and (min-width: 481px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 6rem 0 4rem;
+    }
+    
+    .hero-content {
+        order: 2;
+        margin-top: 2rem;
+    }
+    
+    .hero-image {
+        order: 1;
+    }
+    
+    .about-content {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Large phones */
+@media (max-width: 480px) and (min-width: 361px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+    }
+    
+    .nav-container {
+        padding: 0.8rem 15px;
+    }
+    
+    .profile-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .skill-items {
+        grid-template-columns: 1fr;
+    }
+    
+    .theme-toggle {
+        width: 45px;
+        height: 22px;
+    }
+    
+    .toggle-slider {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .toggle-slider::before {
+        font-size: 8px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile-photo,
+    .about-photo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .theme-toggle-wrapper,
+    .hamburger {
+        display: none !important;
+    }
+    
+    .hero {
+        margin-top: 0;
+    }
+    
+    * {
+        background: white !important;
+        color: black !important;
     }
 }

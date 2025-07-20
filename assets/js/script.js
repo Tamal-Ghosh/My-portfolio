@@ -1,11 +1,50 @@
+// Device compatibility and error handling
+(function() {
+    'use strict';
+    
+    // Polyfill for older browsers
+    if (!Element.prototype.scrollIntoView) {
+        Element.prototype.scrollIntoView = function() {
+            this.scrollTop = this.offsetTop;
+        };
+    }
+    
+    // Handle iOS viewport units bug
+    function setVHProperty() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVHProperty();
+    window.addEventListener('resize', setVHProperty);
+    window.addEventListener('orientationchange', setVHProperty);
+    
+    // Add touch support detection
+    document.documentElement.classList.add(
+        'ontouchstart' in window ? 'touch' : 'no-touch'
+    );
+    
+    // Handle image loading errors
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Failed to load image:', this.src);
+            });
+        });
+    });
+})();
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
@@ -19,10 +58,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Use modern smooth scroll with fallback
+            if ('scrollBehavior' in document.documentElement.style) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else {
+                // Fallback for older browsers
+                const targetPosition = target.offsetTop - 70; // Account for fixed navbar
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
         }
     });
 });

@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#667eea">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; connect-src 'self';">
@@ -11,6 +16,9 @@
     <title>Tamal Ghosh - Portfolio</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Preload critical fonts for better performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
     <!-- Prevent FOUC (Flash of Unstyled Content) for dark theme -->
     <script>
@@ -28,6 +36,22 @@
     </script>
 </head>
 <body>
+    <!-- Fallback for devices with JavaScript disabled -->
+    <noscript>
+        <style>
+            .theme-toggle-wrapper { display: none !important; }
+            .hamburger { display: none !important; }
+            .nav-menu { 
+                position: static !important; 
+                flex-direction: row !important; 
+                background: transparent !important; 
+                box-shadow: none !important; 
+                padding: 0 !important; 
+                left: 0 !important; 
+            }
+        </style>
+    </noscript>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
