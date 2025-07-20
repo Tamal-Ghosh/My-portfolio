@@ -342,21 +342,48 @@ function initializeThemeToggle() {
     
     if (!themeToggle) return;
     
-    // Check if dark theme is already applied from the head script
-    const isDarkThemeApplied = document.documentElement.classList.contains('dark-theme');
-    if (isDarkThemeApplied) {
+    // Check if light theme is saved, otherwise default to dark
+    const savedTheme = localStorage.getItem('theme');
+    const isLightThemeApplied = document.documentElement.classList.contains('light-theme');
+    
+    // If light theme is saved or explicitly applied, apply light theme
+    if (savedTheme === 'light' || isLightThemeApplied) {
+        document.documentElement.classList.add('light-theme');
+        document.body.classList.add('light-theme');
+        document.documentElement.classList.remove('dark-theme');
+        document.body.classList.remove('dark-theme');
+    } else {
+        // Default to dark theme
+        document.documentElement.classList.add('dark-theme');
         document.body.classList.add('dark-theme');
+        document.documentElement.classList.remove('light-theme');
+        document.body.classList.remove('light-theme');
+        if (!savedTheme) {
+            localStorage.setItem('theme', 'dark');
+        }
     }
     
     // Theme toggle functionality
     themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-        document.documentElement.classList.toggle('dark-theme');
+        const isCurrentlyLight = document.body.classList.contains('light-theme');
+        
+        if (isCurrentlyLight) {
+            // Switch to dark theme
+            document.body.classList.remove('light-theme');
+            document.documentElement.classList.remove('light-theme');
+            document.body.classList.add('dark-theme');
+            document.documentElement.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            // Switch to light theme
+            document.body.classList.remove('dark-theme');
+            document.documentElement.classList.remove('dark-theme');
+            document.body.classList.add('light-theme');
+            document.documentElement.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+        }
         
         const isDark = document.body.classList.contains('dark-theme');
-        
-        // Save theme preference
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
         
         // Update navbar styling immediately when theme changes
         const navbar = document.querySelector('.navbar');

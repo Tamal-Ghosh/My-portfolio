@@ -14,12 +14,14 @@
     
     <!-- Prevent FOUC (Flash of Unstyled Content) for dark theme -->
     <script>
-        // Apply dark theme immediately if preferred
+        // Apply dark theme immediately - default to dark mode
         (function() {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
             
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            // Default to dark theme unless explicitly set to light
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            } else {
                 document.documentElement.classList.add('dark-theme');
             }
         })();
