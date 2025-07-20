@@ -342,10 +342,21 @@ function initializeThemeToggle() {
     
     if (!themeToggle) return;
     
+    // Check if dark theme is already applied from the head script
+    const isDarkThemeApplied = document.documentElement.classList.contains('dark-theme');
+    if (isDarkThemeApplied) {
+        document.body.classList.add('dark-theme');
+    }
+    
     // Theme toggle functionality
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-theme');
+        document.documentElement.classList.toggle('dark-theme');
+        
         const isDark = document.body.classList.contains('dark-theme');
+        
+        // Save theme preference
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
         
         // Update navbar styling immediately when theme changes
         const navbar = document.querySelector('.navbar');
