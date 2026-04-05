@@ -307,16 +307,16 @@ document.querySelectorAll('.project-card').forEach(card => {
 });
 
 // Counter animation for stats
-function animateCounter(element, start, end, duration) {
+function animateCounter(element, start, end, duration, suffix = '') {
     let current = start;
     const increment = (end - start) / (duration / 16);
     
     const timer = setInterval(() => {
         current += increment;
-        element.textContent = Math.floor(current) + '+';
+        element.textContent = Math.floor(current) + suffix;
         
         if (current >= end) {
-            element.textContent = end + '+';
+            element.textContent = end + suffix;
             clearInterval(timer);
         }
     }, 16);
@@ -331,9 +331,13 @@ const statsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting && !statsAnimated) {
             const stats = entry.target.querySelectorAll('.stat h4');
             stats.forEach((stat, index) => {
-                const values = [11, 2, 50]; // GitHub Repos, Years Learning, GitHub Contributions
+                const values = [
+                    { value: 21, suffix: '' },
+                    { value: 2, suffix: '+' },
+                    { value: 89, suffix: '' }
+                ];
                 setTimeout(() => {
-                    animateCounter(stat, 0, values[index], 2000);
+                    animateCounter(stat, 0, values[index].value, 2000, values[index].suffix);
                 }, index * 200);
             });
             statsAnimated = true;
